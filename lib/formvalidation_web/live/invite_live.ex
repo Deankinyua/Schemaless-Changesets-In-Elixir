@@ -19,4 +19,25 @@ defmodule FormvalidationWeb.InviteLive do
     # change_invitation/2 will use an empty %{} in mount
     |> assign(:changeset, to_form(Invite.change_invitation(recipient)))
   end
+
+  # lib/arcade_web/live/invite_live.ex
+  def handle_event(
+        "validate",
+        %{"recipient" => recipient_params},
+        %{assigns: %{recipient: recipient}} = socket
+      ) do
+    dbg(recipient)
+
+    changeset =
+      recipient
+      |> Invite.change_invitation(recipient_params)
+      # * we use Map.put(:action, :validate) to add the validate
+      # * action to the changeset, a signal that instructs Phoenix to display errors.
+
+      |> Map.put(:action, :validate)
+
+    {:noreply,
+     socket
+     |> assign(:changeset, to_form(changeset))}
+  end
 end
