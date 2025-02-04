@@ -18,6 +18,8 @@ defmodule FormvalidationWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/invite", InviteLive
   end
 
   # Other scopes may use custom stacks.
