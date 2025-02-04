@@ -18,7 +18,13 @@
       placeholder="Game Name.."
       label="Game Name"
     />
-    <.input field={@changeset[:email]} autocomplete="off" placeholder="Email.." label="Email" />
+    <.input
+      field={@changeset[:email]}
+      autocomplete="off"
+      placeholder="Email.."
+      label="Email"
+      phx-debounce="blur"
+    />
     <.button
       id="save"
       phx-disable-with="Sending..."
