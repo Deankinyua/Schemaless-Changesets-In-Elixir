@@ -11,26 +11,32 @@
   phx-submit="save"
   class="w-[100%] pl-4 md:pl-8 px-2 py-4 rounded-2xl shadow-lg hover:shadow-xl transition ease-in-out duration-300  flex items-center gap-2"
 >
-  <div class="flex flex-col gap-6">
-    <.input
-      field={@changeset[:game_name]}
-      autocomplete="off"
-      placeholder="Game Name.."
-      label="Game Name"
-    />
-    <.input
-      field={@changeset[:email]}
-      autocomplete="off"
-      placeholder="Email.."
-      label="Email"
-      phx-debounce="blur"
-    />
-    <.button
-      id="save"
-      phx-disable-with="Sending..."
-      class="hover:cursor-pointer w-[100%] mono-600 text-[#FFFFFF] bg-[#0079FF] hover:bg-[#0079FF]/70  dark:hover:bg-[#5f9ffc] transition ease-in-out duration-300"
-    >
-      Send
-    </.button>
+  <div class="flex items-center">
+    <div class="flex flex-col gap-6">
+      <.input
+        field={@changeset[:game_name]}
+        autocomplete="off"
+        placeholder="Game Name.."
+        label="Game Name"
+      />
+      <.input
+        field={@changeset[:email]}
+        autocomplete="off"
+        placeholder="Email.."
+        label="Email"
+        phx-debounce="blur"
+      />
+      <.button
+        id="save"
+        phx-disable-with="Sending..."
+        class="hover:cursor-pointer w-[100%] mono-600 text-[#FFFFFF] bg-[#0079FF] hover:bg-[#0079FF]/70  dark:hover:bg-[#5f9ffc] transition ease-in-out duration-300"
+      >
+        Send
+      </.button>
+    </div>
+
+    <div>
+      {@message}
+    </div>
   </div>
 </.form>

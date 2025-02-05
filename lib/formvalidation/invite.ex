@@ -6,6 +6,7 @@ defmodule Formvalidation.Invite do
   end
 
   def send_invite(recipient, attrs) do
+    dbg(Recipient.changeset(recipient, attrs))
     # send email to promo recipient
   end
 end

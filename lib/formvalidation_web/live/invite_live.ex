@@ -10,7 +10,8 @@ defmodule FormvalidationWeb.InviteLive do
     {:ok,
      socket
      |> assign(:recipient, %Recipient{})
-     |> assign_changeset()}
+     |> assign_changeset()
+     |> assign(message: "")}
   end
 
   def assign_changeset(%{assigns: %{recipient: recipient}} = socket) do
@@ -26,8 +27,6 @@ defmodule FormvalidationWeb.InviteLive do
         %{"recipient" => recipient_params},
         %{assigns: %{recipient: recipient}} = socket
       ) do
-    dbg(recipient)
-
     changeset =
       recipient
       |> Invite.change_invitation(recipient_params)
@@ -39,5 +38,25 @@ defmodule FormvalidationWeb.InviteLive do
     {:noreply,
      socket
      |> assign(:changeset, to_form(changeset))}
+  end
+
+  def handle_event(
+        "save",
+        %{"recipient" => _recipient_params},
+        %{assigns: %{changeset: changeset}} = socket
+      ) do
+    cond do
+      changeset.source.valid? == false ->
+        {:noreply,
+         socket
+         |> assign(:message, "Email Not Sent")
+         |> assign(:changeset, changeset)}
+
+      true ->
+        {:noreply,
+         socket
+         |> assign(:message, "Email Sent")
+         |> assign_changeset()}
+    end
   end
 end
